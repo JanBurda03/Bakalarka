@@ -1,165 +1,184 @@
 ﻿public class EmptyMaximalSpaces
 {
+
     private IList<Space> emptyMaximalSpaces;
+
+    private int Height; 
+
+    public EmptyMaximalSpaces(Space initialSpace)
+    {
+        emptyMaximalSpaces = new List<Space> { initialSpace };
+
+        Height = initialSpace.End.Z;
+    }
 
     public EmptyMaximalSpaces(IEnumerable<Space> initialSpaces)
     {
         emptyMaximalSpaces = initialSpaces.ToList();
+
+        Height = emptyMaximalSpaces.Max(x => x.End.Z);
     }
 
-    private IEnumerable<Space> UpdateSingleEmptySpace(Space emptySpace, Space newlyOccupied)
+    public IEnumerable<Space> getEmptySpaces(Dimensions dimensions)
     {
-        if (emptySpace.IntersectsWith(newlyOccupied))
+        // returns only the spaces in which the object (defined by the dimensions) can be fitted
+        return from space in emptyMaximalSpaces where space.GetDimensions().AllGreaterOrEqualThan(dimensions) select space;
+    }
+
+    public IEnumerable<Space> getEmptySpaces()
+    {
+        // returns only the spaces in which the object (defined by the dimensions) can be fitted
+        return emptyMaximalSpaces;
+    }
+
+
+    public void updateEmptySpaces(Space newlyOccupied)
+    {
+        if (!IsValidPlacement(newlyOccupied))
         {
-            return SplitRemainingSpace(emptySpace, newlyOccupied);
+            throw new Exception("Space is already occupied");
         }
 
-        return new[] { emptySpace };
+        List<Space> newSpaces = new List<Space>();
+        List<Space> unchangedSpaces = new List<Space>();
+
+        foreach (Space space in emptyMaximalSpaces) 
+        {
+            if (space.IntersectsWith(newlyOccupied))
+            {
+                newSpaces.AddRange(SplitRemainingSpace(space, newlyOccupied));
+            }
+            else
+            {
+                unchangedSpaces.Add(space);
+            }
+        }
+
+        newSpaces = deleteSubspaces(newSpaces, unchangedSpaces);
+
+        unchangedSpaces.AddRange(newSpaces);
+        unchangedSpaces.Add(addUpperEMS(newlyOccupied));
+
+        emptyMaximalSpaces = unchangedSpaces;
     }
 
-    public void UpdateEmptySpaces(Space newlyOccupied)
+    private bool IsValidPlacement(Space newlyOccupied) 
     {
-        emptyMaximalSpaces = emptyMaximalSpaces
-            .SelectMany(space => UpdateSingleEmptySpace(space, newlyOccupied))
-            .ToList();
-
-        mergeSpacesWithHeight(newlyOccupied);
-
-        deleteSubspaces();
-        
+        bool valid = false;
+        foreach (Space space in emptyMaximalSpaces)
+        {
+            Console.WriteLine(newlyOccupied.IsSubspaceOf(space));
+            if (newlyOccupied.IsSubspaceOf(space))
+            {
+                
+                valid = true;
+            }
+        }
+        return valid;
     }
-
-    public IEnumerable<Space> GetCurrentSpaces() => emptyMaximalSpaces;
     
-    private void deleteSubspaces()
+    public List<Space> deleteSubspaces(List<Space> newSpaces, List<Space> unchangedSpaces)
     {
+        newSpaces = newSpaces.Distinct().ToList();
 
+        List<Space> toRemove = new List<Space>();
+
+        for (int i = 0; i < newSpaces.Count; i++)
+        {
+            for (int j = i + 1; j < newSpaces.Count; j++)
+            {
+                var a = newSpaces[i];
+                var b = newSpaces[j];
+
+                if (a.IsSubspaceOf(b))
+                    toRemove.Add(a);
+                else if (b.IsSubspaceOf(a))
+                    toRemove.Add(b);
+            }
+        }
+
+        foreach (Space space in unchangedSpaces)
+        {
+            foreach (Space newSpace in newSpaces)
+            {
+                if (newSpace.IsSubspaceOf(space))
+                {
+                    toRemove.Add(newSpace);
+                }
+            }
+        }
+
+        foreach (Space space in toRemove)
+        {
+            newSpaces.Remove(space);
+        }
+
+        return newSpaces;
     }
 
 
-    private void mergeSpacesWithHeight(Space occupied)
+    private Space addUpperEMS(Space occupied)
     {
-
+        return new Space(new Coordinates(occupied.Start.X, occupied.Start.Y, occupied.End.Z), new Coordinates(occupied.End.X, occupied.End.Y, Height));
+        // TODO: Implement that two spaces starting at the same height and neigbouring are merged
     }
+
+
 
     public IEnumerable<Space> SplitRemainingSpace(Space original, Space occupied)
     {
         List<Space> spaces = new List<Space>();
 
-        if (original.start.Z < occupied.start.Z)
+        if (original.Start.Z < occupied.Start.Z)
         {
             throw new Exception("Newly placed object must always be fully on base");
         }
 
-        if (original.start.Z > occupied.start.Z)
+        if (original.Start.Z > occupied.Start.Z)
         {
             throw new Exception("Empty maximal space must always be fully on base");
         }
 
-        int a_start = original.start.X;
-        int b_start = original.start.Y;
+        int a_start = original.Start.X;
+        int b_start = original.Start.Y;
 
-        int a_end = original.end.X;
-        int b_end = original.end.Y;
+        int a_end = original.End.X;
+        int b_end = original.End.Y;
 
-        int x_start = occupied.start.X;
-        int y_start = occupied.start.Y;
+        int x_start = occupied.Start.X;
+        int y_start = occupied.Start.Y;
 
-        int x_end = occupied.end.X;
-        int y_end = occupied.end.Y;
+        int x_end = occupied.End.X;
+        int y_end = occupied.End.Y;
 
         if (x_start > a_start)
         {
-            spaces.Add(new Space(new Coordinates(a_start, b_start, original.start.Z), new Coordinates(x_start, b_end, original.start.Z)));
+            spaces.Add(new Space(new Coordinates(a_start, b_start, original.Start.Z), new Coordinates(x_start, b_end, original.End.Z)));
         }
 
         if (y_start > b_start)
         {
-            spaces.Add(new Space(new Coordinates(a_start, b_start, original.start.Z), new Coordinates(a_end, y_start, original.start.Z)));
+            spaces.Add(new Space(new Coordinates(a_start, b_start, original.Start.Z), new Coordinates(a_end, y_start, original.End.Z)));
         }
 
         if (x_end < a_end)
         {
-            spaces.Add(new Space(new Coordinates(x_end, b_start, original.start.Z), new Coordinates(a_end, b_end, original.start.Z)));
+            spaces.Add(new Space(new Coordinates(x_end, b_start, original.Start.Z), new Coordinates(a_end, b_end, original.End.Z)));
         }
 
         if (y_end < b_end)
         {
-            spaces.Add(new Space(new Coordinates(a_start, y_end, original.start.Z), new Coordinates(a_end, b_end, original.start.Z)));
+            spaces.Add(new Space(new Coordinates(a_start, y_end, original.Start.Z), new Coordinates(a_end, b_end, original.End.Z)));
 
-        }
-
-        if (original.end.Z > occupied.end.Z)
-        {
-            spaces.Add(new Space(new Coordinates(x_start, y_start, occupied.end.Z), new Coordinates(x_end, y_end, original.end.Z)));
         }
 
         return spaces;
     }
 }
 
-public record struct Space
-{
-    public Coordinates start;
-    public Coordinates end;
-
-    public bool IntersectsWith(Space anotherSpace)
-    {
-        return (    (start.allLessThan(anotherSpace.start) || end.allEqual(anotherSpace.start))         &&  end.allGreaterThan(anotherSpace.start)                                      ) // start of another space is in between the start and the end of our space
-            || (    start.allLessThan(anotherSpace.end)                                                 && (end.allGreaterThan(anotherSpace.end) || end.allEqual(anotherSpace.end))     ) // end of another space is in between the start and the end of our space
-            || (    (start.allGreaterThan(anotherSpace.start) || start.allEqual(anotherSpace.start))    && start.allLessThan(anotherSpace.end)                                          ) // start of our space is somewhere in between the start and the end of another space
-            || (    end.allGreaterThan(anotherSpace.start)                                              && (end.allLessThan(anotherSpace.end) || end.allEqual(anotherSpace.end))        );// end of our space is somewhere in between the start and the end of another space
-
-    }
 
 
-    public bool isSubspaceOf(Space space)
-    {
-        return (start.allGreaterThan(space.start) || start.allEqual(space.start))
-            && (end.allLessThan(space.end) || end.allEqual(space.end));
-    }
 
-    public bool isOverspaceOf(Space space)
-    {
-        return (start.allLessThan(space.start) || start.allEqual(space.start))
-            && (end.allGreaterThan(space.end) || end.allEqual(space.end));
-    }
-
-    public Space(Coordinates start, Coordinates end)
-    {
-        this.start = start;
-        this.end = end;
-    }
-}
-
-public record struct Coordinates
-{
-    public int X;
-    public int Y;
-    public int Z;
-
-    public Coordinates(int X, int Y, int Z)
-    {
-        this.X = X;
-        this.Y = Y;
-        this.Z = Z;
-    }
-
-    public bool allEqual(Coordinates anotherCoordinates)
-    {
-        return (X == anotherCoordinates.X) && (Y == anotherCoordinates.Y) && (Z == anotherCoordinates.Z);
-    }
-
-    public bool allGreaterThan(Coordinates anotherCoordinates)
-    {
-        return (X > anotherCoordinates.X) && (Y > anotherCoordinates.Y) && (Z > anotherCoordinates.Z);
-    }
-
-    public bool allLessThan(Coordinates anotherCoordinates)
-    {
-        return (X < anotherCoordinates.X) && (Y < anotherCoordinates.Y) && (Z < anotherCoordinates.Z);
-    }
-}
 
 
 
