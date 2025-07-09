@@ -1,11 +1,11 @@
 ﻿
 using System.Text.Json;
 
-public record class PackingInput(Container Container, List<Item> Items);
+public record class PackingInput(ContainerProperties Container, List<ItemProperties> Items);
 
-public record class Container(int Width, int Height, int Depth, int MaxWeight);
+public record class ContainerProperties(Dimensions Dimension, int MaxWeight);
 
-public record class Item(int Id, int Width, int Height, int Depth, int Weight);
+public record class ItemProperties(int Id, Dimensions Dimension, int Weight);
 
 public static class PackingInputLoader
 {
@@ -20,7 +20,7 @@ public static class PackingInputLoader
 
     static void Main()
     {
-
+        Console.WriteLine("ahoj");
     }
 }
 

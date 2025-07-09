@@ -9,7 +9,7 @@
 
         var ems = new EmptyMaximalSpaces(space);
 
-        var allSpaces = ems.getEmptySpaces(new Dimensions(1, 1, 1)).ToList();
+        var allSpaces = ems.getEmptyMaximalSpaces(new Dimensions(1, 1, 1)).ToList();
 
         Assert.Single(allSpaces);
         Assert.Equal(space, allSpaces[0]);
@@ -23,7 +23,7 @@
 
         var ems = new EmptyMaximalSpaces(new List<Space> { s1, s2 });
 
-        var fittingSpaces = ems.getEmptySpaces(new Dimensions(6, 6, 6)).ToList();
+        var fittingSpaces = ems.getEmptyMaximalSpaces(new Dimensions(6, 6, 6)).ToList();
 
         Assert.Single(fittingSpaces);
         Assert.Equal(s2, fittingSpaces[0]);
@@ -37,10 +37,10 @@
 
         var box1 = new Space(new Coordinates(2, 2, 0), new Coordinates(5, 5, 4));
         var box2 = new Space(new Coordinates(0, 0, 0), new Coordinates(2, 2, 4));
-        ems.updateEmptySpaces(box1);
-        ems.updateEmptySpaces(box2);
+        ems.updateEmptyMaximalSpaces(box1);
+        ems.updateEmptyMaximalSpaces(box2);
 
-        var updatedSpaces = ems.getEmptySpaces(new Dimensions(0, 0, 0)).ToList();
+        var updatedSpaces = ems.getEmptyMaximalSpaces(new Dimensions(0, 0, 0)).ToList();
 
 
 
@@ -83,14 +83,14 @@
         var box1 = new Space(new Coordinates(2, 2, 0), new Coordinates(5, 5, 4));
         var box2 = new Space(new Coordinates(0, 0, 0), new Coordinates(2, 2, 4));
 
-        ems.updateEmptySpaces(box1);
-        ems.updateEmptySpaces(box2);
+        ems.updateEmptyMaximalSpaces(box1);
+        ems.updateEmptyMaximalSpaces(box2);
 
         var box3 = new Space(new Coordinates(3, 0, 0), new Coordinates(5, 2, 3));
 
-        ems.updateEmptySpaces(box3);
+        ems.updateEmptyMaximalSpaces(box3);
 
-        var updatedSpaces = ems.getEmptySpaces(new Dimensions(0, 0, 0)).ToList();
+        var updatedSpaces = ems.getEmptyMaximalSpaces(new Dimensions(0, 0, 0)).ToList();
 
 
 
@@ -118,14 +118,14 @@
         var box1 = new Space(new Coordinates(2, 2, 0), new Coordinates(5, 5, 4));
         var box2 = new Space(new Coordinates(0, 0, 0), new Coordinates(2, 2, 4));
 
-        ems.updateEmptySpaces(box1);
-        ems.updateEmptySpaces(box2);
+        ems.updateEmptyMaximalSpaces(box1);
+        ems.updateEmptyMaximalSpaces(box2);
 
         var box3 = new Space(new Coordinates(3, 0, 0), new Coordinates(6, 2, 3));
 
-        ems.updateEmptySpaces(box3);
+        ems.updateEmptyMaximalSpaces(box3);
 
-        var updatedSpaces = ems.getEmptySpaces(new Dimensions(0, 0, 0)).ToList();
+        var updatedSpaces = ems.getEmptyMaximalSpaces(new Dimensions(0, 0, 0)).ToList();
 
 
 
