@@ -23,7 +23,7 @@
             Console.WriteLine();
             Console.WriteLine($"Trying to pack item {itemToBePacked.Item.ItemProperties.Id}");
 
-            (container, coordinate) = itemToBePacked.WhereToPackHeuristics(itemToBePacked, Containers);
+            (container, coordinate) = itemToBePacked.WhereToPackHeuristics(itemToBePacked, GetContainersWithWeightLeft(itemToBePacked.Item.ItemProperties.Weight));
             if (container != null)
             {
                 Console.WriteLine($"Using heuristics {itemToBePacked.WhereToPackHeuristics.Method.Name}, a beautiful new place for the item was found in container {container.ID} at {coordinate.ToString()}");
@@ -35,7 +35,7 @@
 
                 AddContainer();
 
-                (container, coordinate) = itemToBePacked.WhereToPackHeuristics(itemToBePacked, Containers);
+                (container, coordinate) = itemToBePacked.WhereToPackHeuristics(itemToBePacked, GetContainersWithWeightLeft(itemToBePacked.Item.ItemProperties.Weight));
                 if (container != null)
                 {
                     Console.WriteLine($"After adding new container, using heuristics, a beautiful new place for the item was found in container {container.ID} at {coordinate.ToString()}");
@@ -50,6 +50,11 @@
 
         ItemsToBePacked.Clear();
 
+    }
+
+    private IEnumerable<Container> GetContainersWithWeightLeft(int weight)
+    {
+        return from Container container in Containers where (container.CurrentWeight + weight <= container.ContainerProperties.MaxWeight) select container;
     }
 
     private void AddContainer()

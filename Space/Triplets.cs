@@ -18,6 +18,14 @@ public readonly record struct Coordinates : ITriplet
         this.Z = Z;
     }
 
+    public double GetEuclidanDistanceTo(Coordinates coordinates)
+    {
+        int dx = this.X - coordinates.X;
+        int dy = this.Y - coordinates.Y;
+        int dz = this.Z - coordinates.Z;
+        return Math.Sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
 }
 
 public readonly record struct Dimensions : ITriplet
