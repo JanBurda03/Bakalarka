@@ -30,20 +30,25 @@
             if (TooLargeSizes(boxToBePacked)) // checking whether any of the sizes of the rotated box are greater that the sizes of an empty container; in that case, there is no solution for that rotation
             {
                 boxToBePacked = ChangeBoxRotation(boxToBePacked); // changing the rotation, because there is no chance that the previus one would fit even in an empty container
+                
                 if (!TryPackBox(boxToBePacked)) // if the box still cannot be packed, it is because containers are already too loaded and a new container is opened 
                 {
                     AddContainer();
+
+                    if (!TryPackBox(boxToBePacked)) // if there is still a problem with the loading, it means that the box itself is heavier than the capacity of container
+                    {
+                        throw new Exception("The box is too heavy!");
+                    }
                 }
             }
             else // if the problem is not that there is no valid solution for that rotation, the problem must be the lack of space in any of the containers, so new one is opened
             {
                 AddContainer();
-            }
 
-
-            if (!TryPackBox(boxToBePacked)) // if there is still a problem with the loading, it means that the box itself is heavier than the capacity of container
-            {
-                throw new Exception("The box is too heavy!");
+                if (!TryPackBox(boxToBePacked)) // if there is still a problem with the loading, it means that the box itself is heavier than the capacity of container
+                {
+                    throw new Exception("The box is too heavy!");
+                }
             }
         }
 
@@ -60,6 +65,8 @@
         // in case that there is no valid solution for that particular rotation (even after adding an empty container), the rotation must be changed
 
         int count = Enum.GetValues(typeof(Rotation)).Length;
+
+
         BoxToBePacked newBoxToBePacked;
         for (int i = 1; i < count; i++)
         {
