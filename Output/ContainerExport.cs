@@ -6,7 +6,7 @@
 );
 
 
-public static class ContainerExtension
+public static class ContainerExtensionForExport
 {
     public static ContainerExport ExportContainer(this Container container) 
     {

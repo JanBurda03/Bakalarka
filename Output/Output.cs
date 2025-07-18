@@ -3,7 +3,7 @@
 
 public static class PackingOutputSaver
 {
-    public static void SaveToFile(List<Container> containers, string fileName)
+    public static void SaveToFile(IReadOnlyList<Container> containers, string fileName)
     {
         var exportContainers = containers
             .Select(container => container.ExportContainer())

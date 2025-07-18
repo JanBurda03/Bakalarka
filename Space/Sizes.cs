@@ -16,7 +16,7 @@
         return X * Y * Z;
     }
 
-    public Region ToSpace(Coordinates start)
+    public Region ToRegion(Coordinates start)
     {
 
         return new Region(new Coordinates(start.X, start.Y, start.Z), new Coordinates(X+start.X, Y+start.Y, Z + start.Z));

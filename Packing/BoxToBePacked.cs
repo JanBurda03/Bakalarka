@@ -6,17 +6,25 @@
 
     public PlacementHeuristic PlacementHeuristic { get; init; }
 
-    public PackedBox ToPackedBox(Region occupiedRegion, int containerID)
+    public BoxToBePacked(BoxProperties boxProperties,  Rotation rotation, PlacementHeuristic placementHeuristic)
     {
-        if (occupiedRegion.GetSizes() != GetRotatedSizes())
+        this.Box = boxProperties;
+        this.Rotation = rotation;
+        this.PlacementHeuristic = placementHeuristic;
+    }
+
+    public PackedBox ToPackedBox(PlacementInfo placementInfo)
+    {
+
+        if (placementInfo.OccupiedRegion.GetSizes() != GetRotatedSizes())
         {
             throw new Exception("The sizes of the occupied region do not correspond to the sizes of the rotated box!");
         }
-        return new PackedBox(containerID, occupiedRegion, Box, Rotation);
+        return new PackedBox(placementInfo, Box, Rotation);
     }
 
     public Sizes GetRotatedSizes()
     {
-        return Box.Dimension.GetRotatedSizes(Rotation);
+        return Box.Sizes.GetRotatedSizes(Rotation);
     }
 }

@@ -21,14 +21,19 @@
         CurrentWeight = 0;
         OccupiedVolume = 0;
         ContainerProperties = containerProperties;
-        EmptyMaximalRegions = new EmptyMaximalRegions(ContainerProperties.Dimension.ToSpace());
+        EmptyMaximalRegions = new EmptyMaximalRegions(ContainerProperties.Sizes.ToRegion(new Coordinates(0,0,0)));
 
         _packedBoxes = new List<PackedBox>();
     }
 
-    public void PackBox(BoxToBePacked boxToBePacked, Region occupiedRegion)
+    public void PackBox(BoxToBePacked boxToBePacked, PlacementInfo placementInfo)
     {
-        PackedBox packedBox = boxToBePacked.ToPackedBox(occupiedRegion, ID);
+        if (ID != placementInfo.ContainerID) 
+        {
+            throw new Exception($"The item is supposed to be packed to container {placementInfo.ContainerID}, this is container {ID}");
+        }
+
+        PackedBox packedBox = boxToBePacked.ToPackedBox(placementInfo);
 
         CurrentWeight += packedBox.BoxProperties.Weight;
 
@@ -37,41 +42,17 @@
             throw new Exception("Maximum weight has been exceeded!");
         }
 
-        EmptyMaximalRegions.UpdateEMR(occupiedRegion);
+        EmptyMaximalRegions.UpdateEMR(placementInfo.OccupiedRegion);
 
         _packedBoxes.Add(packedBox);
 
-        OccupiedVolume += occupiedRegion.GetVolume();
+        OccupiedVolume += placementInfo.OccupiedRegion.GetVolume();
     }
 
-    public ContainerDataForHeuristics GetDataForHeuristics() 
+    public ContainerDataForHeuristics GetDataForHeuristics()
     {
         return new ContainerDataForHeuristics(ID, CurrentWeight, OccupiedVolume, EmptyMaximalRegions.GetEMR(), PackedBoxes, ContainerProperties);
     }
 }
 
-public readonly record struct ContainerDataForHeuristics
-{
-    public int ID { get; init; }
-    public int CurrentWeight { get; init; }
 
-    public int OccupiedVolume { get; init; }
-
-    public IReadOnlyList<Region> EMR {get; init; }
-
-    public IReadOnlyList<PackedBox> PackedBoxes { get; init; }
-
-
-    public ContainerProperties ContainerProperties { get; init; }
-
-    public ContainerDataForHeuristics(int id, int currentWeight, int occupiedVolume, IReadOnlyList<Region> emr, IReadOnlyList<PackedBox> packedBoxes, ContainerProperties containerProperties)
-    {
-        ID = id;
-        CurrentWeight = currentWeight;
-        OccupiedVolume = occupiedVolume;
-        EMR = emr;
-        ContainerProperties = containerProperties;
-        PackedBoxes = packedBoxes;
-
-    }
-}

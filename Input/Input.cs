@@ -3,9 +3,9 @@ using System.Text.Json;
 
 public record class PackingInput(ContainerProperties ContainerProperties, List<BoxProperties> BoxesProperties);
 
-public record class ContainerProperties(Sizes Dimension, int MaxWeight);
+public record class ContainerProperties(Sizes Sizes, int MaxWeight);
 
-public record class BoxProperties(int Id, Sizes Dimension, int Weight);
+public record class BoxProperties(int Id, Sizes Sizes, int Weight);
 
 public static class PackingInputLoader
 {
