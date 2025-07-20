@@ -8,8 +8,7 @@
 
     public PlacementHeuristic Decode(PackingVectorCell cell)
     {
-        double doubleValue = cell;
-        int index = Math.Min((int)(doubleValue * Heuristics.Length), Heuristics.Length - 1);
+        int index = Math.Min((int)((double)cell * Heuristics.Length), Heuristics.Length - 1);
         return Heuristics[index];
     }
 }

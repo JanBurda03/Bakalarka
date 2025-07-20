@@ -1,17 +1,27 @@
-﻿public class CellToAllRotationsDecoder: IPackingVectorCellDecoder<Rotation>
+﻿public abstract class CellToMultipleRotationsDecoderbase : IPackingVectorCellDecoder<Rotation>
 {
-    private Rotation[] Rotations;
-    public CellToAllRotationsDecoder()
+    protected readonly Rotation[] rotations;
+
+    protected CellToMultipleRotationsDecoderbase(Rotation[] rotations)
     {
-        Rotations = Enum.GetValues<Rotation>();
+        this.rotations = rotations;
     }
 
     public Rotation Decode(PackingVectorCell cell)
     {
-        double doubleValue = cell;
-        int index = Math.Min((int)(doubleValue * Rotations.Length), Rotations.Length - 1);
-        return Rotations[index];
+        int index = Math.Min((int)((double)cell * rotations.Length), rotations.Length - 1);
+        return rotations[index];
     }
+}
+
+public class CellToAllRotationsDecoder : CellToMultipleRotationsDecoderbase
+{
+    public CellToAllRotationsDecoder() : base(Enum.GetValues<Rotation>()) { }
+}
+
+public class CellToMultipleRotationsDecoder : CellToMultipleRotationsDecoderbase
+{
+    public CellToMultipleRotationsDecoder(Rotation[] rotations) : base(rotations) { }
 }
 
 public class CellToOneRotationDecoder : IPackingVectorCellDecoder<Rotation>
