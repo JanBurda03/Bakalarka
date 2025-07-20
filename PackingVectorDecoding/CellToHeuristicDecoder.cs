@@ -1,6 +1,6 @@
 ﻿public class CellToMultipleHeuristicsDecoder : IPackingVectorCellDecoder<PlacementHeuristic>
 {
-    PlacementHeuristic[] Heuristics;
+    PlacementHeuristic[] Heuristics { get; init; }
     public CellToMultipleHeuristicsDecoder(PlacementHeuristic[] heuristics)
     {
         Heuristics = heuristics;
@@ -15,7 +15,7 @@
 
 public class CellToOneHeuristicDecoder : IPackingVectorCellDecoder<PlacementHeuristic>
 {
-    PlacementHeuristic Heuristic;
+    PlacementHeuristic Heuristic { get; init; }
     public CellToOneHeuristicDecoder(PlacementHeuristic heuristic)
     {
         Heuristic = heuristic;
