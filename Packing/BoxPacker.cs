@@ -1,4 +1,9 @@
-﻿public interface IBoxPacker
+﻿public interface IParallelSafeCloneable<T>
+{
+    public T ParallelSafeClone();
+}
+
+public interface IBoxPacker: IParallelSafeCloneable<IBoxPacker>
 {
     public void PackBoxes(IEnumerable<BoxToBePacked> boxesToBePacked);
     public IReadOnlyList<Container> GetContainers();
@@ -73,6 +78,11 @@ public class BoxPacker:IBoxPacker
     private void AddContainer()
     {
         Containers.Add(new Container(Containers.Count, ContainerProperties));
+    }
+
+    public IBoxPacker ParallelSafeClone()
+    {
+        return new BoxPacker(ContainerProperties);
     }
 
     private BoxToBePacked ChangeBoxRotation(BoxToBePacked boxToBePacked)

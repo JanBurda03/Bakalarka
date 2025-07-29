@@ -1,4 +1,4 @@
-﻿public interface IPackingVectorSolver
+﻿public interface IPackingVectorSolver : IParallelSafeCloneable<IPackingVectorSolver>
 {
     public IReadOnlyList<Container> Solve(PackingVector packingVector);
 }

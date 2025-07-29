@@ -1,4 +1,5 @@
-﻿public interface IFitnessEvaluator<T>
+﻿
+public interface IFitnessEvaluator<T, U> where U : IComparable<U>
 {
-    public double EvaluateFitness(T t);
+    public U EvaluateFitness(T t);
 }

@@ -1,10 +1,10 @@
 ﻿
-public class PackingVectorFintessEvaluator:IFitnessEvaluator<PackingVector>
+public class PackingVectorFintessEvaluator:IFitnessEvaluator<PackingVector, double>, IParallelSafeCloneable<PackingVectorFintessEvaluator>
 {
-    IFitnessEvaluator<IReadOnlyList<Container>> ContainersFitnessEvaluator { get; init; }
+    IFitnessEvaluator<IReadOnlyList<Container>, double> ContainersFitnessEvaluator { get; init; }
     IPackingVectorSolver PackingVectorSolver { get; init; }
 
-    public PackingVectorFintessEvaluator(IFitnessEvaluator<IReadOnlyList<Container>> containersFitnessEvaluator, IPackingVectorSolver packingVectorSolver)
+    public PackingVectorFintessEvaluator(IFitnessEvaluator<IReadOnlyList<Container>, double> containersFitnessEvaluator, IPackingVectorSolver packingVectorSolver)
     {
         ContainersFitnessEvaluator = containersFitnessEvaluator;
         PackingVectorSolver = packingVectorSolver;
@@ -14,5 +14,10 @@ public class PackingVectorFintessEvaluator:IFitnessEvaluator<PackingVector>
     {
         IReadOnlyList<Container> containers = PackingVectorSolver.Solve(packingVector);
         return ContainersFitnessEvaluator.EvaluateFitness(containers);
+    }
+
+    public PackingVectorFintessEvaluator ParallelSafeClone()
+    {
+        return new PackingVectorFintessEvaluator(ContainersFitnessEvaluator, PackingVectorSolver.ParallelSafeClone());
     }
 }
