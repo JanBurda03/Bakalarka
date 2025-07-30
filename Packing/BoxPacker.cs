@@ -1,15 +1,4 @@
-﻿public interface IParallelSafeCloneable<T>
-{
-    public T ParallelSafeClone();
-}
-
-public interface IBoxPacker: IParallelSafeCloneable<IBoxPacker>
-{
-    public void PackBoxes(IEnumerable<BoxToBePacked> boxesToBePacked);
-    public IReadOnlyList<Container> GetContainers();
-
-    public void Reset();
-}
+﻿
 
 public class BoxPacker:IBoxPacker
 {
@@ -121,7 +110,7 @@ public class BoxPacker:IBoxPacker
     {
         // collecting the data for heuristics from all the opened containers
 
-       return Containers.Select(container => container.GetDataForHeuristics()).ToList();
+       return Containers.Select(container => container.Data).ToList();
     }
 
     private bool TryPackBox(BoxToBePacked boxToBePacked)

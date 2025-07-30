@@ -38,4 +38,8 @@
         return new PackingVector(vector);
         
     }
+
+    public PackingVectorCell this[int index] => Vector[index];
+
+
 }

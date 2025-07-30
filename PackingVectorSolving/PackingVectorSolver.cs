@@ -18,9 +18,4 @@ public class PackingVectorSolver : IPackingVectorSolver
         BoxPacker.Reset();
         return containers;
     }
-
-    public IPackingVectorSolver ParallelSafeClone()
-    {
-        return new PackingVectorSolver(PackingVectorDecoder, BoxPacker.ParallelSafeClone(), PackingInput); 
-    }
 }

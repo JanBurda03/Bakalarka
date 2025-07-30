@@ -1,4 +1,4 @@
-﻿public class ContainersFitnessEvaluator : IFitnessEvaluator<IReadOnlyList<Container>, double>, IParallelSafeCloneable<ContainersFitnessEvaluator>
+﻿public class ContainersFitnessEvaluator : IFitnessEvaluator<IReadOnlyList<Container>, double>
 {
     public double EvaluateFitness(IReadOnlyList<Container> containers)
     {
@@ -12,10 +12,5 @@
             }
         }
         return currentMin + containers.Count;
-    }
-
-    public ContainersFitnessEvaluator ParallelSafeClone()
-    {
-        return this;
     }
 }

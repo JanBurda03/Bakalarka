@@ -1,4 +1,5 @@
-﻿public class PackingVectorDecoder:IPackingVectorDecoder
+﻿
+public class PackingVectorDecoder:IPackingVectorDecoder
 {
     private IPackingVectorCellDecoder<PlacementHeuristic> CellToHeuristicDecoder { get; init; }
     private IPackingVectorCellDecoder<Rotation> CellToRotationDecoder { get; init; }

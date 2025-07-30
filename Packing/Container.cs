@@ -13,6 +13,26 @@
     private List<PackedBox> _packedBoxes { get; set; }
 
 
+    private ContainerDataForHeuristics? _data { get; set; }
+    public ContainerDataForHeuristics Data
+    {
+        get
+        {
+            if (_data == null)
+            {
+                _data = new ContainerDataForHeuristics(
+                    ID,
+                    CurrentWeight,
+                    OccupiedVolume,
+                    EmptyMaximalRegions.GetEMR(),
+                    PackedBoxes,
+                    ContainerProperties
+                );
+            }
+            return (ContainerDataForHeuristics)_data;
+        }
+    }
+
     public IReadOnlyList<PackedBox> PackedBoxes => _packedBoxes;
 
     public Container(int iD, ContainerProperties containerProperties)
@@ -22,7 +42,7 @@
         OccupiedVolume = 0;
         ContainerProperties = containerProperties;
         EmptyMaximalRegions = new EmptyMaximalRegions(ContainerProperties.Sizes.ToRegion(new Coordinates(0,0,0)));
-
+        _data = null;
         _packedBoxes = new List<PackedBox>();
     }
 
@@ -32,6 +52,8 @@
         {
             throw new Exception($"The item is supposed to be packed to container {placementInfo.ContainerID}, this is container {ID}");
         }
+
+        _data = null;
 
         PackedBox packedBox = boxToBePacked.ToPackedBox(placementInfo);
 
@@ -57,11 +79,6 @@
     public double GetRelativeWeight()
     {
         return (double)CurrentWeight /ContainerProperties.MaxWeight;
-    }
-
-    public ContainerDataForHeuristics GetDataForHeuristics()
-    {
-        return new ContainerDataForHeuristics(ID, CurrentWeight, OccupiedVolume, EmptyMaximalRegions.GetEMR(), PackedBoxes, ContainerProperties);
     }
 }
 

@@ -1,4 +1,4 @@
-﻿public interface IEvolutionBlock<T, U> where U : IComparable<U>
+﻿public interface IEvolutionBlock<T> where T : IComparable<T>
 {
-    public IReadOnlyList<EvaluatedIndividiual<T, U>> NextPartialGeneration(IReadOnlyList<EvaluatedIndividiual<T, U>> CurrentEvaluatedPopulation);
+    public IReadOnlyList<T> NextPartialGeneration(IReadOnlyList<T> CurrentEvaluatedPopulation);
 }
