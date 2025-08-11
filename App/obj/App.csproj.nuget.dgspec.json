@@ -1,0 +1,266 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\App\\App.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\App\\App.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\App\\App.csproj",
+        "projectName": "App",
+        "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\App\\App.csproj",
+        "packagesPath": "C:\\Users\\Jan Burda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\App\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jan Burda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj"
+              },
+              "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\SettingForm\\SettingForm.csproj": {
+                "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\SettingForm\\SettingForm.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\Jan Burda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jan Burda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Packing\\Packing.csproj": {
+                "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Packing\\Packing.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Packing\\Packing.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Packing\\Packing.csproj",
+        "projectName": "Packing",
+        "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Packing\\Packing.csproj",
+        "packagesPath": "C:\\Users\\Jan Burda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Packing\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jan Burda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\SettingForm\\SettingForm.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\SettingForm\\SettingForm.csproj",
+        "projectName": "SettingForm",
+        "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\SettingForm\\SettingForm.csproj",
+        "packagesPath": "C:\\Users\\Jan Burda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\SettingForm\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jan Burda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\Jan Burda\\Desktop\\BachelorThesis\\Code\\Core\\Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
