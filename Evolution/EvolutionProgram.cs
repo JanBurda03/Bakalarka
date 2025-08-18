@@ -8,7 +8,7 @@ public static class EvolutionProgram
         var initialPopulation = CreateInitialPopulation(packingInput, setting.PackingSetting, setting.NumberOfIndividuals);
         var evaluator = PackingVectorFitnessEvaluator.Create(packingInput, setting.PackingSetting);
 
-        double stopValue = packingInput.GetLowerBound() + 0.99;
+        double stopValue = packingInput.GetLowerBound() + 1;
         var evolutionary = EvolutionaryAlgorithms.GetEvolutionaryAlgorithm(setting.AlgorithmName, initialPopulation, evaluator, null, stopValue);
         evolutionary.Evolve(setting.NumberOfGenerations);
         var best = evolutionary.GlobalBest.individual;
@@ -32,6 +32,8 @@ public static class EvolutionProgram
 
         foreach (ContainerData container in containers)
         {
+            var containerRegion = container.ContainerProperties.Sizes.ToRegion(new Coordinates(0, 0, 0));
+
             IReadOnlyList<PackedBox> packedBoxes = container.PackedBoxes;
 
             for (int i = 0; i < packedBoxes.Count; i++) 
@@ -41,7 +43,7 @@ public static class EvolutionProgram
                     var box1 = packedBoxes[i];
                     var box2 = packedBoxes[j];
 
-                    if (box1.PlacementInfo.OccupiedRegion.IntersectsWith(box2.PlacementInfo.OccupiedRegion))
+                    if (box1.PlacementInfo.OccupiedRegion.IntersectsWith(box2.PlacementInfo.OccupiedRegion) || !box1.PlacementInfo.OccupiedRegion.IsSubregionOf(containerRegion) || !box2.PlacementInfo.OccupiedRegion.IsSubregionOf(containerRegion))
                     {
                         throw new Exception($"Fatal packing program error, in container {container.ID}, box {box1} intersects with {box2}!");
                     }

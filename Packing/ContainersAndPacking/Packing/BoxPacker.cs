@@ -2,7 +2,7 @@
 {
     private readonly ContainerProperties _containerProperties;
 
-    private List<Container> _containers;
+    private readonly List<Container> _containers;
 
     public IReadOnlyList<ContainerData> ContainersData => (from cont in _containers select cont.Data).ToList().AsReadOnly();
 
